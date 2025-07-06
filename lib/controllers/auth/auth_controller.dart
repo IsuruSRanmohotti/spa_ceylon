@@ -5,7 +5,9 @@ import 'package:provider/provider.dart';
 import 'package:spa_ceylon/controllers/database/user_controller.dart';
 import 'package:spa_ceylon/models/user_model.dart';
 import 'package:spa_ceylon/providers/user_provider.dart';
+import 'package:spa_ceylon/screens/auth/auth_screen.dart';
 import 'package:spa_ceylon/utils/custom_dialogs.dart';
+import 'package:spa_ceylon/utils/navigation_manager.dart';
 
 class AuthController {
   Future<void> signUpUserWithEmail(
@@ -23,7 +25,7 @@ class AuthController {
         uid: credential.user!.uid,
       );
       Provider.of<UserProvider>(context, listen: false).setCurrentUser(myData);
-      UserController().saveUserData(myData).then((value) {
+      await UserController().saveUserData(myData).then((value) {
         Logger().f('User Data Saved');
       });
     } on FirebaseAuthException catch (e) {
@@ -40,9 +42,10 @@ class AuthController {
     }
   }
 
-  Future<void> signOutUser() async {
+  Future<void> signOutUser(BuildContext context) async {
     try {
       await FirebaseAuth.instance.signOut();
+      NavigationManager.goWithReplace(context, SigninScreen());
     } catch (e) {
       Logger().e('Failed');
     }

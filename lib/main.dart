@@ -5,9 +5,10 @@ import 'package:provider/provider.dart';
 import 'package:spa_ceylon/firebase_options.dart';
 import 'package:spa_ceylon/providers/add_product_provider.dart';
 import 'package:spa_ceylon/providers/auth_provider.dart';
+import 'package:spa_ceylon/providers/cart_provider.dart';
 import 'package:spa_ceylon/providers/product_provider.dart';
 import 'package:spa_ceylon/providers/user_provider.dart';
-import 'package:spa_ceylon/screens/auth/auth_state_screen.dart';
+import 'package:spa_ceylon/screens/splash_screen/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,6 +20,8 @@ void main() async {
         ChangeNotifierProvider(create: (context) => UserProvider()),
         ChangeNotifierProvider(create: (context) => ProductAddProvider()),
         ChangeNotifierProvider(create: (context) => ProductProvider()),
+        ChangeNotifierProvider(create: (context) => CartProvider()),
+
       ],
       child: MyApp(),
     ),
@@ -36,7 +39,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.amber),
       ),
-      home: AuthStateScreen(),
+      home: SplashScreen(),
       builder: EasyLoading.init(),
     );
   }

@@ -6,7 +6,10 @@ class Categories {
     CategoryModel(id: 'fragrances', category: 'Fragrances'),
     CategoryModel(id: 'mind_and_body', category: 'Mind & Body'),
     CategoryModel(id: 'hair_wellness', category: 'Hair Wellness'),
-    CategoryModel(id: 'home_wellness', category: 'Home Wellness')
+    CategoryModel(id: 'home_wellness', category: 'Home Wellness'),
   ];
 
+  static CategoryModel findCategoryById(String id) {
+    return list.firstWhere((categoryModel) => categoryModel.id == id);
+  }
 }

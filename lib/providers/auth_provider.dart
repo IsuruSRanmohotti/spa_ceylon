@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:spa_ceylon/controllers/auth/auth_controller.dart';
+import 'package:spa_ceylon/screens/home/homepage.dart';
 import 'package:spa_ceylon/utils/custom_dialogs.dart';
+import 'package:spa_ceylon/utils/navigation_manager.dart';
 
 class AuthProvider extends ChangeNotifier {
   final TextEditingController _emailController = TextEditingController();
@@ -20,12 +22,12 @@ class AuthProvider extends ChangeNotifier {
       _confirmPasswordController;
 
   Future<void> startSignUp(BuildContext context) async {
-    if(_userNameController.text.trim().isEmpty){
+    if (_userNameController.text.trim().isEmpty) {
       CustomDialogs.showCustomCupertinoDialog(
         context,
         subtitle: 'Please insert your user name',
       );
-    }else if (_emailController.text.trim().isEmpty) {
+    } else if (_emailController.text.trim().isEmpty) {
       CustomDialogs.showCustomCupertinoDialog(
         context,
         subtitle: 'Please insert valid email',
@@ -47,8 +49,9 @@ class AuthProvider extends ChangeNotifier {
         context,
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
-        name: _userNameController.text.trim()
+        name: _userNameController.text.trim(),
       );
+      NavigationManager.goWithReplace(context, HomePage());
       EasyLoading.dismiss();
     }
   }
@@ -73,6 +76,7 @@ class AuthProvider extends ChangeNotifier {
         password: _passwordController.text.trim(),
       );
       EasyLoading.dismiss();
+      NavigationManager.goWithReplace(context, HomePage());
     }
   }
 

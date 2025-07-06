@@ -4,6 +4,7 @@ import 'package:spa_ceylon/controllers/auth/auth_controller.dart';
 import 'package:spa_ceylon/providers/product_provider.dart';
 import 'package:spa_ceylon/providers/user_provider.dart';
 import 'package:spa_ceylon/screens/home/admin/product_add_screen.dart';
+import 'package:spa_ceylon/screens/home/product_view/product_view.dart';
 import 'package:spa_ceylon/utils/color_utils.dart';
 import 'package:spa_ceylon/utils/navigation_manager.dart';
 
@@ -90,7 +91,7 @@ class _HomePageState extends State<HomePage> {
                                     SizedBox(width: 6),
                                     GestureDetector(
                                       onLongPress: () {
-                                        AuthController().signOutUser();
+                                        AuthController().signOutUser(context);
                                       },
                                       child: CircleAvatar(
                                         backgroundImage: NetworkImage(
@@ -166,53 +167,68 @@ class _HomePageState extends State<HomePage> {
                                   itemBuilder: (context, index) {
                                     final product =
                                         productProvider.products![index];
-                                    return Container(
-                                      padding: EdgeInsets.all(8),
-                                      decoration: BoxDecoration(
-                                        color: Colors.grey.shade800,
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            height: (size.width / 2) - 40,
-                                            decoration: BoxDecoration(
-                                              color: Colors.grey,
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                              image: DecorationImage(
-                                                image: NetworkImage(
-                                                  product.images.first,
+                                    return GestureDetector(
+                                      onTap: () {
+                                        productProvider.setSelectedProduct(
+                                          product,
+                                          context,
+                                        );
+                                        NavigationManager.goTo(
+                                          context,
+                                          ProductView(),
+                                        );
+                                      },
+                                      child: Container(
+                                        padding: EdgeInsets.all(8),
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey.shade800,
+                                          borderRadius: BorderRadius.circular(
+                                            20,
+                                          ),
+                                        ),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                              height: (size.width / 2) - 40,
+                                              decoration: BoxDecoration(
+                                                color: Colors.grey,
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                                image: DecorationImage(
+                                                  image: NetworkImage(
+                                                    product.images.first,
+                                                  ),
+                                                  fit: BoxFit.cover,
                                                 ),
-                                                fit: BoxFit.cover,
                                               ),
                                             ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                              vertical: 4,
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                    vertical: 4,
+                                                  ),
+                                              child: Text(
+                                                product.name,
+                                                style: TextStyle(
+                                                  color: Colors.grey.shade200,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
                                             ),
-                                            child: Text(
-                                              product.name,
+                                            Text(
+                                              'LKR ${product.price.toStringAsFixed(2)}',
                                               style: TextStyle(
-                                                color: Colors.grey.shade200,
+                                                color: Colors.amber.shade700,
+                                                fontSize: 18,
                                                 fontWeight: FontWeight.bold,
                                               ),
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
                                             ),
-                                          ),
-                                          Text(
-                                            'LKR ${product.price.toStringAsFixed(2)}',
-                                            style: TextStyle(
-                                              color: Colors.amber.shade700,
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     );
                                   },

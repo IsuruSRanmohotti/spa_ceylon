@@ -5,11 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:logger/logger.dart';
+import 'package:provider/provider.dart';
 import 'package:spa_ceylon/controllers/database/product_controller.dart';
 import 'package:spa_ceylon/controllers/storage/storage_controller.dart';
 import 'package:spa_ceylon/data/categories.dart';
 import 'package:spa_ceylon/models/category_model.dart';
 import 'package:spa_ceylon/models/product_model.dart';
+import 'package:spa_ceylon/providers/product_provider.dart';
 import 'package:spa_ceylon/utils/custom_dialogs.dart';
 
 class ProductAddProvider extends ChangeNotifier {
@@ -172,6 +174,10 @@ class ProductAddProvider extends ChangeNotifier {
       EasyLoading.dismiss();
       if (isSuccess) {
         if (context.mounted) {
+          Provider.of<ProductProvider>(
+            context,
+            listen: false,
+          ).addNewProduct(product);
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text('Product Added'),
