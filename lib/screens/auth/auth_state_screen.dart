@@ -2,9 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:provider/provider.dart';
 import 'package:spa_ceylon/controllers/database/user_controller.dart';
-import 'package:spa_ceylon/providers/user_provider.dart';
 import 'package:spa_ceylon/screens/auth/auth_screen.dart';
 import 'package:spa_ceylon/screens/home/homepage.dart';
 
@@ -16,6 +14,14 @@ class AuthStateScreen extends StatefulWidget {
 }
 
 class _AuthStateScreenState extends State<AuthStateScreen> {
+  Future<void> _getUserData() async {
+    UserController().getUserData(context);
+  }
+
+  Future<void> _threeSecondDelay() async {
+    Future.delayed(Duration(seconds: 3));
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
@@ -27,7 +33,7 @@ class _AuthStateScreenState extends State<AuthStateScreen> {
         }
         if (snapshot.data == null) {
           return FutureBuilder(
-            future: Future.delayed(Duration(seconds: 3)),
+            future: _threeSecondDelay(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return SplashScreen(size: size);
@@ -37,7 +43,7 @@ class _AuthStateScreenState extends State<AuthStateScreen> {
           );
         } else {
           return FutureBuilder(
-            future:  UserController().getUserData(context),
+            future: _getUserData(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return SplashScreen(size: size);

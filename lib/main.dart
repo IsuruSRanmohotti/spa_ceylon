@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:provider/provider.dart';
 import 'package:spa_ceylon/firebase_options.dart';
+import 'package:spa_ceylon/providers/add_product_provider.dart';
 import 'package:spa_ceylon/providers/auth_provider.dart';
+import 'package:spa_ceylon/providers/product_provider.dart';
 import 'package:spa_ceylon/providers/user_provider.dart';
 import 'package:spa_ceylon/screens/auth/auth_state_screen.dart';
 
@@ -12,8 +14,11 @@ void main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(
     MultiProvider(
-      providers: [ChangeNotifierProvider(create: (context) => AuthProvider()),
-      ChangeNotifierProvider(create: (context) => UserProvider())
+      providers: [
+        ChangeNotifierProvider(create: (context) => AuthProvider()),
+        ChangeNotifierProvider(create: (context) => UserProvider()),
+        ChangeNotifierProvider(create: (context) => ProductAddProvider()),
+        ChangeNotifierProvider(create: (context) => ProductProvider()),
       ],
       child: MyApp(),
     ),
@@ -32,7 +37,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.amber),
       ),
       home: AuthStateScreen(),
-      builder: EasyLoading.init()
+      builder: EasyLoading.init(),
     );
   }
 }

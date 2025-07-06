@@ -4,13 +4,19 @@ class CustomTextField extends StatelessWidget {
   final IconData? prefixIcon;
   final String label;
   final bool isPassword;
+  final Color? bgColor;
   final TextEditingController? controller;
+  final TextInputType? textInputType;
+  final int maxLines;
+  
   const CustomTextField({
     super.key,
     this.prefixIcon,
     required this.label,
     this.isPassword = false,
-    this.controller
+    this.controller,
+    this.bgColor,
+    this.textInputType,this.maxLines =1
   });
 
   @override
@@ -21,7 +27,9 @@ class CustomTextField extends StatelessWidget {
         controller: controller,
         obscureText: isPassword,
         style: TextStyle(color: Colors.grey.shade300),
+        maxLines: maxLines,
         cursorColor: Colors.grey,
+        keyboardType: textInputType,
         decoration: InputDecoration(
           prefixIcon: prefixIcon != null ? Icon(prefixIcon) : null,
           border: OutlineInputBorder(
@@ -33,7 +41,7 @@ class CustomTextField extends StatelessWidget {
             borderRadius: BorderRadius.circular(15),
             borderSide: BorderSide(color: Colors.grey.shade800),
           ),
-          fillColor: Colors.black.withAlpha(50),
+          fillColor: bgColor ?? Colors.black.withAlpha(50),
           filled: true,
 
           label: Text(label),
