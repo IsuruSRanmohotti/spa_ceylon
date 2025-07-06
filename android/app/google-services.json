@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "638558893813",
+    "project_id": "spa-ceylon-app",
+    "storage_bucket": "spa-ceylon-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:638558893813:android:b6031f09f3bcabba56b7bc",
+        "android_client_info": {
+          "package_name": "com.example.spa_ceylon"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXpBxM_HU571fTfWHljJ1ObG9JpYDdBOQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
